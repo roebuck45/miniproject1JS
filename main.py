@@ -5,7 +5,8 @@
 
 #(5/5 points) Proper import of packages used.
 import yfinance as yf
-import pprint
+import numpy as np
+import matplotlib.pyplot as plt
 
 #(20/20 points) Using an API of your choice (yfinance works), collect the closing price of 5 of your favorite stock
 # tickers for the last 10 trading days.
@@ -24,13 +25,30 @@ def getClosing(ticker):
         closingList.append(round(price,2))
     return closingList
 
-stock = ["MSFT", "AAPL", "GME", "SONY", "META"]
+stocks = ["MSFT", "AAPL", "GME", "SONY", "META"]
+
+for stock in stocks:
+    mstfClosing = np.array(getClosing(stock))
+    days = list(range(1, len(mstfClosing) + 1))
+
+    # Plots graph
+    plt.plot(days, mstfClosing)
 
 
+    prices = getClosing(stock)
+    prices.sort()
+    low_price = prices[0]
+    high_price = prices[-1]
 
-msft = getClosing("MSFT")
+    # form [xmin, xmax, ymin, ymax]
+    plt.axis([1, 10, low_price-2, high_price+2])
 
-print(msft)
+    # Sets x and y labels
+    plt.xlabel("Days")
+    plt.ylabel("Closing Price")
+    plt.title("Closing Price for " + stock)
+
+    plt.show()
 
 
 

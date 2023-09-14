@@ -27,7 +27,7 @@ def getClosing(ticker):
     return closingList
 try:
     Path("Charts").mkdir()
-except FileExistsError
+except FileExistsError:
     pass
 
 stocks = ["MSFT", "AAPL", "GME", "SONY", "META"]

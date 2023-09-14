@@ -25,6 +25,24 @@ def getClosing(ticker):
     for price in hist['Close']:
         closingList.append(round(price,2))
     return closingList
+
+def getStocks():
+    stock = []
+    print("Please pick 5 stocks")
+    for i in range(1, 6):
+        while True:
+            print("Enter stock trick number " + str(i))
+            ticker = input("> ")
+             try:
+                stock = yf.Ticker(ticker)
+                stock.info
+                stocks.append(ticker)
+                break
+            except:
+                print("Not valdi")
+
+
+
 try:
     Path("Charts").mkdir()
 except FileExistsError:
@@ -32,7 +50,7 @@ except FileExistsError:
 
 stocks = ["MSFT", "AAPL", "GME", "SONY", "META"]
 
-for stock in stocks:
+for stock in getStocks():
     mstfClosing = np.array(getClosing(stock))
     days = list(range(1, len(mstfClosing) + 1))
     # Plots graph

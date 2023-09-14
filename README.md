@@ -12,3 +12,10 @@ Please run the following:
 ```
 pip install -r requirements.txt
 ```
+## How to Run 
+
+In your OS CLI run
+
+```
+python main.py
+```

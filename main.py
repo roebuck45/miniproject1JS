@@ -7,6 +7,7 @@
 import yfinance as yf
 import numpy as np
 import matplotlib.pyplot as plt
+from pathlib import Path
 
 #(20/20 points) Using an API of your choice (yfinance works), collect the closing price of 5 of your favorite stock
 # tickers for the last 10 trading days.
@@ -24,13 +25,16 @@ def getClosing(ticker):
     for price in hist['Close']:
         closingList.append(round(price,2))
     return closingList
+try:
+    Path("Charts").mkdir()
+except FileExistsError
+    pass
 
 stocks = ["MSFT", "AAPL", "GME", "SONY", "META"]
 
 for stock in stocks:
     mstfClosing = np.array(getClosing(stock))
     days = list(range(1, len(mstfClosing) + 1))
-
     # Plots graph
     plt.plot(days, mstfClosing)
 

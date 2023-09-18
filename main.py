@@ -11,8 +11,6 @@ from pathlib import Path
 
 
 # tickers for the last 10 trading days.
-# Apple is is AAPL
-# Mircosoft is MSFT
 
 def getClosing(ticker):
     stock = yf.Ticker(ticker)
@@ -24,34 +22,13 @@ def getClosing(ticker):
     for price in hist['Close']:
         closingList.append(round(price,2))
     return closingList
-def getStocks():
-    stock = []
-    print("Please pick 5 stocks")
-    for i in range(1, 6):
-        while True:
-            print("Enter stock trick number " + str(i))
-            ticker = input("> ")
-             try:
-                stock = yf.Ticker(ticker)
-                stock.info
-                stocks.append(ticker)
-                break
-            except:
-                print("Not valdi")
 
-# Create our "Charts" directory
-try:
-    Path("Charts").mkdir()
-except FileExistsError:
-    pass
+def printGraph(stock):
 
-stocks = ["MSFT", "AAPL", "GME", "SONY", "META"]
-
-for stock in getStocks():
-    mstfClosing = np.array(getClosing(stock))
-    days = list(range(1, len(mstfClosing) + 1))
+    stockClosing = np.array(getClosing(stock))
+    days = list(range(1, len(stockClosing) + 1))
     # Plots graph
-    plt.plot(days, mstfClosing)
+    plt.plot(days, stockClosing)
 
     # Get our min and max for Y
     prices = getClosing(stock)
@@ -61,7 +38,7 @@ for stock in getStocks():
 
     # Set out X axis min and max
     # form [xmin, xmax, ymin, ymax]
-    plt.axis([1, 10, low_price-2, high_price+2])
+    plt.axis([1, 10, low_price - 2, high_price + 2])
 
     # Set out labels for the graph
     plt.xlabel("Days")
@@ -72,5 +49,34 @@ for stock in getStocks():
     saveFile = "Charts/" + stock + ".png"
     plt.savefig(saveFile)
 
-    # Show the the graph
-    plt.show()
+    # Show the graph
+    # plt.show()
+
+def getStocks():
+    stocks = []
+    print("Please pick 5 stocks to graph:")
+    for i in range(1, 6):
+        while True:
+            print("Enter stock ticker number " + str(i))
+            ticker = input("> ")
+            try:
+                stock = yf.Ticker(ticker)
+                stock.info
+                stocks.append(ticker)
+                break
+            except:
+                print("That is not valid stock. Please enter another.")
+    return stocks
+
+
+
+# Start of the Program
+# Create our "Charts" directory
+try:
+    Path("Charts").mkdir()
+except FileExistsError:
+    pass
+
+for stock in getStocks():
+    getClosing(stock)
+    printGraph(stock)

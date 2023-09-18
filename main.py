@@ -50,7 +50,7 @@ def printGraph(stock):
     plt.savefig(saveFile)
 
     # Show the graph
-    # plt.show()
+    plt.show()
 
 def getStocks():
     stocks = []
